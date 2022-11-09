@@ -1,11 +1,9 @@
-import platform
 import os
 
 from time import sleep
 
-system = platform.system()
-
 def father() :
+    
     try :
         
         print('\n\t-------------------------------------------------')
