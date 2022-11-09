@@ -1,5 +1,4 @@
 import platform
-import sys
 import os
 
 from time import sleep
@@ -7,28 +6,33 @@ from time import sleep
 system = platform.system()
 
 def father() :
-    print('\n\t-------------------------------------------------')
-    numChildProcesses = int(input('\tHola usuario, introduce cuantos procesos ejecutar\n\t'))
-    
-    executables = {
-        'linux' : os.fork()
-    }
-    
-    contador = 0
-    
-    while (contador <= numChildProcesses) :
+    try :
         
-        contador += 1
-        
-        newPid = os.fork()
-        
-        if newPid == 0 :        
-            children()
-        else :
-            fatherPid = os.getpid()
-            childrenPid = newPid
+        print('\n\t-------------------------------------------------')
+        numChildProcesses = int(input('\tHola usuario, introduce cuantos procesos ejecutar\n\t'))
             
-            print('PID del padre : %s, PID del hijo : %s\n' % (fatherPid, childrenPid))
+        contador = 0
+        
+        while (contador < numChildProcesses) :
+            
+            newPid = os.fork()
+            
+            if newPid == 0 :        
+                children()
+            else :
+                fatherPid = os.getpid()
+                childrenPid = newPid
+                
+                print('PID del padre : %s, PID del hijo : %s\n' % (fatherPid, childrenPid))
+                
+            contador += 1
+    
+    except :
+        
+        print('\n\t*****************************************************')
+        print('\tERROR : El dato introducido debe ser un número entero')
+        print('\t*****************************************************')
+        
         
 def children() :
     print('\t········ | Hijo con PID %d | ········\n' % os.getpid())
