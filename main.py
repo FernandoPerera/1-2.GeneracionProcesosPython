@@ -16,11 +16,11 @@ def father() :
     
     contador = 0
     
-    while (contador < numChildProcesses) :
+    while (contador <= numChildProcesses) :
         
         contador += 1
         
-        newPid = [executables[sys.platform]]
+        newPid = os.fork()
         
         if newPid == 0 :        
             children()
@@ -31,7 +31,7 @@ def father() :
             print('PID del padre : %s, PID del hijo : %s\n' % (fatherPid, childrenPid))
         
 def children() :
-    print('\n\t········ | Hijo con PID %d | ········' % os.getpid())
+    print('\t········ | Hijo con PID %d | ········\n' % os.getpid())
     sleep(5)
     print('\n\t········ | PID %d ha muerto :( | ········' % os.getpid())
 
